@@ -3,6 +3,7 @@ import { Rest } from '../../../helpers/rest';
 import { IMetricsResponse } from '../../../interfaces';
 import { IMetricValue } from '../../database-metrics/interfaces/metric-value.interface';
 import { mongoDbDefinition } from './database-definitions/mongodb-definition';
+import { rabbitMqDefinition } from './database-definitions/rabbitmq-definition';
 import { redisDefinition } from './database-definitions/redis-definition';
 import { DefaultHost } from './enums/default-hosts.enum';
 import { IDatabaseDefinition } from './interfaces/database-definition.interface';
@@ -26,6 +27,8 @@ export abstract class DatadogTransportAbstract {
         return redisDefinition;
       case DatabaseType.Mongodb:
         return mongoDbDefinition;
+      case DatabaseType.RabbitMq:
+        return rabbitMqDefinition;
       default:
         return;
     }

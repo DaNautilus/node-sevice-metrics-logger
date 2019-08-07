@@ -39,7 +39,31 @@ declare module 'cfenv' {
     volume_mounts: string[];
   }
 
+  export interface IApp {
+    application_id: string;
+    application_name: string;
+    application_uris: string[];
+    application_version: string;
+    cf_api: string;
+    host: string;
+    limits: number;
+    name: string;
+    organization_id: string;
+    organization_name: string;
+    process_id: string;
+    process_type: string;
+    space_id: string;
+    space_name: string;
+    start: string;
+    started_at: string;
+    started_at_timestamp: string;
+    state_timestamp: string;
+    uris: string[];
+    version: string;
+  }
+
   export interface IAppEnv {
+    app: IApp;
     getServices(): IService[];
     getServiceCreds(serviceName: RegExp | string): TCredentials;
   }

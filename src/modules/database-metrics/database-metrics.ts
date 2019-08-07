@@ -77,17 +77,25 @@ export abstract class DatabaseMetrics extends PubSub {
   }
 
   private getDifferencePerSecond(metricDefinition: IMetricDefinition, metrics: {}): any[] {
-    const lastMetric = this.lastMetrics.get(metricDefinition.metric) || [];
+    const lastMetrics = this.lastMetrics.get(metricDefinition.metric) || [];
     const currentMetrics = metricDefinition.getValues(metrics);
-    const interval = this.credentials.interval || defaultInterval;
 
     const metricsDifferencePerSecond = currentMetrics.map((currentMetric, index) => ({
       ...currentMetric,
-      value: Math.round((currentMetric.value - (lastMetric[index] && lastMetric[index].value || 0)) / (interval / 1000)),
+      value: this.getDifferencePerSecondMetricValue(currentMetric, lastMetrics, index),
     }));
 
     this.lastMetrics.set(metricDefinition.metric, currentMetrics);
 
     return metricsDifferencePerSecond;
+  }
+
+  private getDifferencePerSecondMetricValue(currentMetric: IMetricValue, lastMetrics: IMetricValue[], index: number): number {
+    const interval = this.credentials.interval || defaultInterval;
+    const lastMetricValue = lastMetrics[index] && lastMetrics[index].value || 0;
+
+    return typeof currentMetric.value === 'number' && typeof lastMetricValue === 'number'
+      ? Math.round((currentMetric.value - lastMetricValue) / (interval / 1000))
+      : 0;
   }
 }

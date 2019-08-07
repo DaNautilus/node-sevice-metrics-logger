@@ -9,6 +9,7 @@ import {
     IDatabaseMetricsLoggerConfig
 } from './interfaces/database-metrics-logger-config.interface';
 import { MongoDbAgent } from './modules/database-metrics/mongodb/agent';
+import { RabbitMqAgent } from './modules/database-metrics/rabbitmq/agent';
 import { RedisAgent } from './modules/database-metrics/redis/agent';
 import { ITransportInterface } from './modules/transports/interfaces/transport-interface';
 
@@ -18,7 +19,7 @@ const defaultOptions = {
 
 export class DatabaseMetricsLogger extends PubSub {
   private databaseCredentials: IDatabaseCredentials[];
-  private dbMetricsAgents: (MongoDbAgent | RedisAgent)[] = [];
+  private dbMetricsAgents: (MongoDbAgent | RedisAgent | RabbitMqAgent)[] = [];
   private transports: ITransportInterface[];
 
   constructor(config: IDatabaseMetricsLoggerConfig) {
@@ -57,6 +58,8 @@ export class DatabaseMetricsLogger extends PubSub {
         return new MongoDbAgent(credentials);
       case DatabaseType.Redis:
         return new RedisAgent(credentials);
+      case DatabaseType.RabbitMq:
+        return new RabbitMqAgent(credentials);
       default:
         return undefined;
     }
