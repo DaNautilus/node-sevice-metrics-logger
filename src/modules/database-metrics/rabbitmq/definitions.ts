@@ -2,7 +2,7 @@ import { IMetricDefinition } from '../interfaces/metric-definition.interface';
 import { IMetrics } from './interfaces/metrics.interface';
 import { IQueue } from './interfaces/queue/queue.interface';
 
-const getQueueTags = (queue: IQueue) => ([`rabbitmq-queue-name:${queue.name}`]);
+const getQueueTags = (queue: IQueue) => ([`rabbitmq_queue:${queue.name}`, `rabbitmq_node:${queue.node}`]);
 
 export const rabbitMqDefinitions: IMetricDefinition[] = [
   {

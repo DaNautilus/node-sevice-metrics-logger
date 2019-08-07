@@ -1,3 +1,4 @@
+import { logger } from '../../../helpers/logger';
 import { Poller } from '../../../helpers/poller';
 import { Rest } from '../../../helpers/rest';
 import { IDatabaseCredentials } from '../../../interfaces';
@@ -22,8 +23,6 @@ export class RabbitMqAgent extends DatabaseMetrics {
   }
 
   public getMetrics(): RabbitMqAgent {
-    // tslint:disable-next-line: no-debugger
-    debugger;
     const metricsPoller = new Poller({
       id: Poller.pollerIds.rabbitmq,
       interval: this.credentials.interval || rabbitMqDefaultInterval,
@@ -46,17 +45,15 @@ export class RabbitMqAgent extends DatabaseMetrics {
     promises.push(this.rest.get<IOverview>('/overview'));
     promises.push(this.rest.get<IQueue[]>('/queues'));
 
-    // tslint:disable-next-line: no-debugger
-    debugger;
+    try {
+      const [overview, queues] = await Promise.all(promises);
+      const metrics: IMetrics = { overview, queues };
 
-    const [overview, queues] = await Promise.all(promises);
-
-    // tslint:disable-next-line: no-debugger
-    debugger;
-
-    const metrics: IMetrics = { overview, queues };
-
-    this.publishMetrics(metrics);
-    this.pollById(Poller.pollerIds.rabbitmq);
+      this.publishMetrics(metrics);
+      this.pollById(Poller.pollerIds.rabbitmq);
+    } catch (error) {
+      logger.error(error);
+      this.stop();
+    }
   }
 }

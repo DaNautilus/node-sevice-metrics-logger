@@ -66,7 +66,7 @@ export const rabbitMqDefinition: IDatabaseDefinition = {
   logs: [{
     message: 'RabbitMQ Version',
     status: LogStatus.Info,
-    ddsource: '',
+    ddsource: 'rabbitmq',
     attributesMap: {
       version: 'redis_version',
     },
