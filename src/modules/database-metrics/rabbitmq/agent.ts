@@ -7,6 +7,8 @@ import { IMetrics } from './interfaces/metrics.interface';
 import { IOverview } from './interfaces/overview/overview.interface';
 import { IQueue } from './interfaces/queue/queue.interface';
 
+const rabbitMqDefaultInterval = 60000;
+
 export class RabbitMqAgent extends DatabaseMetrics {
   private rest: Rest;
 
@@ -20,9 +22,11 @@ export class RabbitMqAgent extends DatabaseMetrics {
   }
 
   public getMetrics(): RabbitMqAgent {
+    // tslint:disable-next-line: no-debugger
+    debugger;
     const metricsPoller = new Poller({
       id: Poller.pollerIds.rabbitmq,
-      interval: this.credentials.interval,
+      interval: this.credentials.interval || rabbitMqDefaultInterval,
     });
 
     metricsPoller.onPoll(this.onPollMetrics.bind(this));
@@ -33,8 +37,7 @@ export class RabbitMqAgent extends DatabaseMetrics {
   }
 
   public disconnect(): void {
-    // tslint:disable-next-line: no-debugger
-    debugger;
+    return;
   }
 
   private async onPollMetrics(): Promise<void> {

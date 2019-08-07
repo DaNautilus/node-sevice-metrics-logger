@@ -1,7 +1,6 @@
 import { DatabaseMetricsEvent } from './enums';
 import { DatabaseType } from './enums/database-type.enum';
 import { logger } from './helpers/logger';
-import { mergeDeep } from './helpers/merge-deep';
 import { PubSub } from './helpers/pub-sub';
 import { IMetricsResponse } from './interfaces';
 import { IDatabaseCredentials } from './interfaces/database-credentials.interface';
@@ -13,10 +12,6 @@ import { RabbitMqAgent } from './modules/database-metrics/rabbitmq/agent';
 import { RedisAgent } from './modules/database-metrics/redis/agent';
 import { ITransportInterface } from './modules/transports/interfaces/transport-interface';
 
-const defaultOptions = {
-  interval: 10000,
-};
-
 export class DatabaseMetricsLogger extends PubSub {
   private databaseCredentials: IDatabaseCredentials[];
   private dbMetricsAgents: (MongoDbAgent | RedisAgent | RabbitMqAgent)[] = [];
@@ -24,7 +19,7 @@ export class DatabaseMetricsLogger extends PubSub {
 
   constructor(config: IDatabaseMetricsLoggerConfig) {
     super();
-    this.databaseCredentials = config.databaseCredentials.map(this.mapDefaultValues.bind(this));
+    this.databaseCredentials = config.databaseCredentials;
     this.transports = config.transports || [];
   }
 
@@ -63,11 +58,6 @@ export class DatabaseMetricsLogger extends PubSub {
       default:
         return undefined;
     }
-  }
-
-  private mapDefaultValues(serviceCredential: IDatabaseCredentials): IDatabaseCredentials {
-    serviceCredential.name = serviceCredential.name || serviceCredential.host;
-    return mergeDeep({}, defaultOptions, serviceCredential) as IDatabaseCredentials;
   }
 
   private executeTransports(metrics: IMetricsResponse): void {
