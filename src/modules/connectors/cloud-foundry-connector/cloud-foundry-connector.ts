@@ -1,6 +1,6 @@
 import * as cfenv from 'cfenv';
 
-import { DatabaseType } from '../../../enums';
+import { ServiceType } from '../../../enums';
 import { logger } from '../../../helpers/logger';
 import { IDatabaseCredentials } from '../../../interfaces';
 import { CloudFoundryServiceType } from './enums';
@@ -45,9 +45,9 @@ export class CloudFoundryConnector {
     const databaseType = serviceTypeDatabaseTypeMapper.get(cloudFoundryService.label as CloudFoundryServiceType);
 
     switch (databaseType) {
-      case DatabaseType.Mongodb:
+      case ServiceType.Mongodb:
         return mapMongodbCredentials(cloudFoundryService);
-      case DatabaseType.Redis:
+      case ServiceType.Redis:
         return mapRedisCredentials(cloudFoundryService);
       default:
         return;

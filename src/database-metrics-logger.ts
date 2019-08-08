@@ -1,5 +1,4 @@
-import { DatabaseMetricsEvent } from './enums';
-import { DatabaseType } from './enums/database-type.enum';
+import { ServiceMetricsEvent, ServiceType } from './enums';
 import { logger } from './helpers/logger';
 import { PubSub } from './helpers/pub-sub';
 import { IMetricsResponse } from './interfaces';
@@ -24,14 +23,14 @@ export class DatabaseMetricsLogger extends PubSub {
   }
 
   public start(): void {
-    logger.subscribe(undefined, value => this.publish(DatabaseMetricsEvent.Logs, value));
+    logger.subscribe(undefined, value => this.publish(ServiceMetricsEvent.Logs, value));
 
     this.databaseCredentials.forEach(credentials => {
       const agent = this.getDatabaseMetricsAgent(credentials);
 
       if (agent) {
         agent.getMetrics().subscribe(undefined, (metrics: IMetricsResponse) => {
-          this.publish(DatabaseMetricsEvent.Metrics, metrics);
+          this.publish(ServiceMetricsEvent.Metrics, metrics);
           this.executeTransports(metrics);
         });
 
@@ -49,11 +48,11 @@ export class DatabaseMetricsLogger extends PubSub {
 
   private getDatabaseMetricsAgent(credentials: IDatabaseCredentials): any {
     switch (credentials.databaseType) {
-      case DatabaseType.Mongodb:
+      case ServiceType.Mongodb:
         return new MongoDbAgent(credentials);
-      case DatabaseType.Redis:
+      case ServiceType.Redis:
         return new RedisAgent(credentials);
-      case DatabaseType.RabbitMq:
+      case ServiceType.RabbitMq:
         return new RabbitMqAgent(credentials);
       default:
         return undefined;

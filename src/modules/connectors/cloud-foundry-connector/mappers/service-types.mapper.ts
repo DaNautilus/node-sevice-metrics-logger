@@ -1,7 +1,7 @@
-import { DatabaseType } from '../../../../enums';
+import { ServiceType } from '../../../../enums';
 import { CloudFoundryServiceType } from '../enums';
 
-export const serviceTypeDatabaseTypeMapper = new Map<CloudFoundryServiceType, DatabaseType>();
+export const serviceTypeDatabaseTypeMapper = new Map<CloudFoundryServiceType, ServiceType>();
 
-serviceTypeDatabaseTypeMapper.set(CloudFoundryServiceType.Mongodb2, DatabaseType.Mongodb);
-serviceTypeDatabaseTypeMapper.set(CloudFoundryServiceType.Redis2, DatabaseType.Redis);
+serviceTypeDatabaseTypeMapper.set(CloudFoundryServiceType.Mongodb2, ServiceType.Mongodb);
+serviceTypeDatabaseTypeMapper.set(CloudFoundryServiceType.Redis2, ServiceType.Redis);

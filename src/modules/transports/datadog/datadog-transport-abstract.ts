@@ -1,4 +1,4 @@
-import { DatabaseType } from '../../../enums';
+import { ServiceType } from '../../../enums';
 import { Rest } from '../../../helpers/rest';
 import { IMetricsResponse } from '../../../interfaces';
 import { IMetricValue } from '../../database-metrics/interfaces/metric-value.interface';
@@ -21,13 +21,13 @@ export abstract class DatadogTransportAbstract {
     });
   }
 
-  public getDatabaseDefinition(databaseType: DatabaseType): IDatabaseDefinition {
+  public getDatabaseDefinition(databaseType: ServiceType): IDatabaseDefinition {
     switch (databaseType) {
-      case DatabaseType.Redis:
+      case ServiceType.Redis:
         return redisDefinition;
-      case DatabaseType.Mongodb:
+      case ServiceType.Mongodb:
         return mongoDbDefinition;
-      case DatabaseType.RabbitMq:
+      case ServiceType.RabbitMq:
         return rabbitMqDefinition;
       default:
         return;
@@ -38,7 +38,7 @@ export abstract class DatadogTransportAbstract {
     return [
       ...this.mapTags(metrics),
       ...(metricValue && metricValue.tags || []),
-      `database-type:${metrics.databaseType}`,
+      `service-type:${metrics.databaseType}`,
       `service-name:${metrics.name}`,
       ...this.config.tags || [],
     ];

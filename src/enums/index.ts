@@ -1,2 +1,2 @@
-export * from './database-metrics-event.enum';
-export * from './database-type.enum';
+export * from './service-metrics-event.enum';
+export * from './service-type.enum';
