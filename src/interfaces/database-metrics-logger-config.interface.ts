@@ -1,7 +1,7 @@
 import { ITransportInterface } from '../modules/transports/interfaces/transport-interface';
-import { IDatabaseCredentials } from './database-credentials.interface';
+import { IServiceCredentials } from './service-credentials.interface';
 
 export interface IDatabaseMetricsLoggerConfig {
-  databaseCredentials: IDatabaseCredentials[];
+  serviceCredentials: IServiceCredentials[];
   transports?: ITransportInterface[];
 }

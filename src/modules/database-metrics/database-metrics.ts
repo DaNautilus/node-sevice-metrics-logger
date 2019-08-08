@@ -1,6 +1,6 @@
 import { defaultInterval, Poller } from '../../helpers/poller';
 import { PubSub } from '../../helpers/pub-sub';
-import { IDatabaseCredentials, IMetricsResponse } from '../../interfaces';
+import { IServiceCredentials, IMetricsResponse } from '../../interfaces';
 import { IMetricDefinition } from './interfaces/metric-definition.interface';
 import { IMetricValue } from './interfaces/metric-value.interface';
 
@@ -9,7 +9,7 @@ export abstract class DatabaseMetrics extends PubSub {
   private lastMetrics = new Map<string, IMetricValue[]>();
 
   constructor(
-    public credentials: IDatabaseCredentials,
+    public credentials: IServiceCredentials,
     private metricDefinitions: IMetricDefinition[]
   ) {
     super();

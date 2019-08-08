@@ -1,10 +1,10 @@
 import * as cfenv from 'cfenv';
 
-import { IDatabaseCredentials } from '../../../../interfaces';
+import { IServiceCredentials } from '../../../../interfaces';
 import { CloudFoundryServiceType } from '../enums';
 import { serviceTypeDatabaseTypeMapper } from './service-types.mapper';
 
-export const mapRedisCredentials = (cloudFoundryService: cfenv.IService): IDatabaseCredentials => {
+export const mapRedisCredentials = (cloudFoundryService: cfenv.IService): IServiceCredentials => {
   const credentials = cloudFoundryService.credentials as cfenv.IRedisCredentials;
 
   return {

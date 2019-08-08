@@ -2,7 +2,7 @@ import * as cfenv from 'cfenv';
 
 import { ServiceType } from '../../../enums';
 import { logger } from '../../../helpers/logger';
-import { IDatabaseCredentials } from '../../../interfaces';
+import { IServiceCredentials } from '../../../interfaces';
 import { CloudFoundryServiceType } from './enums';
 import { mapMongodbCredentials } from './mappers/mongodb-credentials.mapper';
 import { mapRedisCredentials } from './mappers/redis-credentials.mapper';
@@ -22,7 +22,7 @@ export class CloudFoundryConnector {
     this.appEnvironment = cfenv.getAppEnv({ vcap: options.vcap, vcapFile: options.vcapFile });
   }
 
-  public getCredentials(): IDatabaseCredentials[] {
+  public getCredentials(): IServiceCredentials[] {
     const cloudFoundryServices = this.getCloudFoundryServices();
 
     return cloudFoundryServices
@@ -41,7 +41,7 @@ export class CloudFoundryConnector {
     return serviceValues;
   }
 
-  private mapCloudFoundryCredentials(cloudFoundryService: cfenv.IService): IDatabaseCredentials | undefined {
+  private mapCloudFoundryCredentials(cloudFoundryService: cfenv.IService): IServiceCredentials | undefined {
     const databaseType = serviceTypeDatabaseTypeMapper.get(cloudFoundryService.label as CloudFoundryServiceType);
 
     switch (databaseType) {

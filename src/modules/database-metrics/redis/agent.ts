@@ -5,7 +5,7 @@ import { convertStringToNumber } from '../../../helpers/converters';
 import { logger } from '../../../helpers/logger';
 import { calculatePercentile } from '../../../helpers/percentile';
 import { Poller } from '../../../helpers/poller';
-import { IDatabaseCredentials } from '../../../interfaces';
+import { IServiceCredentials } from '../../../interfaces';
 import { DatabaseMetrics } from '../database-metrics';
 import { redisDefinitions } from './definitions';
 
@@ -18,7 +18,7 @@ export class RedisAgent extends DatabaseMetrics {
   private redisClient?: Redis.RedisClient;
 
   constructor(
-    credentials: IDatabaseCredentials
+    credentials: IServiceCredentials
   ) {
     super(credentials, redisDefinitions);
   }

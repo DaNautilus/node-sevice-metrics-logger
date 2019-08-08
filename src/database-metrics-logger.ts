@@ -1,8 +1,7 @@
 import { ServiceMetricsEvent, ServiceType } from './enums';
 import { logger } from './helpers/logger';
 import { PubSub } from './helpers/pub-sub';
-import { IMetricsResponse } from './interfaces';
-import { IDatabaseCredentials } from './interfaces/database-credentials.interface';
+import { IMetricsResponse, IServiceCredentials } from './interfaces';
 import {
     IDatabaseMetricsLoggerConfig
 } from './interfaces/database-metrics-logger-config.interface';
@@ -12,20 +11,20 @@ import { RedisAgent } from './modules/database-metrics/redis/agent';
 import { ITransportInterface } from './modules/transports/interfaces/transport-interface';
 
 export class DatabaseMetricsLogger extends PubSub {
-  private databaseCredentials: IDatabaseCredentials[];
+  private serviceCredentials: IServiceCredentials[];
   private dbMetricsAgents: (MongoDbAgent | RedisAgent | RabbitMqAgent)[] = [];
   private transports: ITransportInterface[];
 
   constructor(config: IDatabaseMetricsLoggerConfig) {
     super();
-    this.databaseCredentials = config.databaseCredentials;
+    this.serviceCredentials = config.serviceCredentials;
     this.transports = config.transports || [];
   }
 
   public start(): void {
     logger.subscribe(undefined, value => this.publish(ServiceMetricsEvent.Logs, value));
 
-    this.databaseCredentials.forEach(credentials => {
+    this.serviceCredentials.forEach(credentials => {
       const agent = this.getDatabaseMetricsAgent(credentials);
 
       if (agent) {
@@ -46,7 +45,7 @@ export class DatabaseMetricsLogger extends PubSub {
     logger.unsubscribeAll();
   }
 
-  private getDatabaseMetricsAgent(credentials: IDatabaseCredentials): any {
+  private getDatabaseMetricsAgent(credentials: IServiceCredentials): any {
     switch (credentials.databaseType) {
       case ServiceType.Mongodb:
         return new MongoDbAgent(credentials);

@@ -1,7 +1,7 @@
 import { logger } from '../../../helpers/logger';
 import { Poller } from '../../../helpers/poller';
 import { Rest } from '../../../helpers/rest';
-import { IDatabaseCredentials } from '../../../interfaces';
+import { IServiceCredentials } from '../../../interfaces';
 import { DatabaseMetrics } from '../database-metrics';
 import { rabbitMqDefinitions } from './definitions';
 import { IMetrics } from './interfaces/metrics.interface';
@@ -14,7 +14,7 @@ export class RabbitMqAgent extends DatabaseMetrics {
   private rest: Rest;
 
   constructor(
-    credentials: IDatabaseCredentials
+    credentials: IServiceCredentials
   ) {
     super(credentials, rabbitMqDefinitions);
 
