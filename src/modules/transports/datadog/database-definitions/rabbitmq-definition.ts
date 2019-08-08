@@ -39,6 +39,12 @@ export const rabbitMqDefinition: IDatabaseDefinition = {
     // queue consumers
     'rabbitmq.queue.consumers': 'queue.consumers',
 
+    // number of messages ready to be delivered to clients
+    'rabbitmq.queue.messages_ready': 'queue.messages_ready',
+
+    // number of messages delivered to clients but not yet acknowledged
+    'rabbitmq.queue.messages_unacknowledged': 'queue.messages_unacknowledged',
+
     // active queue consumers
     // 'rabbitmq.queue.active_consumers': '',
 
