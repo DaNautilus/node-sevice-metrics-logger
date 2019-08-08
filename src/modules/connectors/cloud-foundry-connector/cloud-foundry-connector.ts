@@ -6,7 +6,7 @@ import { IServiceCredentials } from '../../../interfaces';
 import { CloudFoundryServiceType } from './enums';
 import { mapMongodbCredentials } from './mappers/mongodb-credentials.mapper';
 import { mapRedisCredentials } from './mappers/redis-credentials.mapper';
-import { serviceTypeDatabaseTypeMapper } from './mappers/service-types.mapper';
+import { serviceTypeMapper } from './mappers/service-types.mapper';
 
 export interface ICloudFoundryOptions {
   vcap?: {};
@@ -26,7 +26,7 @@ export class CloudFoundryConnector {
     const cloudFoundryServices = this.getCloudFoundryServices();
 
     return cloudFoundryServices
-      .filter(service => !!serviceTypeDatabaseTypeMapper.get(service.label as CloudFoundryServiceType))
+      .filter(service => !!serviceTypeMapper.get(service.label as CloudFoundryServiceType))
       .map(service => this.mapCloudFoundryCredentials(service));
   }
 
@@ -42,7 +42,7 @@ export class CloudFoundryConnector {
   }
 
   private mapCloudFoundryCredentials(cloudFoundryService: cfenv.IService): IServiceCredentials | undefined {
-    const databaseType = serviceTypeDatabaseTypeMapper.get(cloudFoundryService.label as CloudFoundryServiceType);
+    const databaseType = serviceTypeMapper.get(cloudFoundryService.label as CloudFoundryServiceType);
 
     switch (databaseType) {
       case ServiceType.Mongodb:
