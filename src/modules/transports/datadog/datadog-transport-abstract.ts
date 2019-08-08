@@ -1,7 +1,7 @@
 import { ServiceType } from '../../../enums';
 import { Rest } from '../../../helpers/rest';
 import { IMetricsResponse } from '../../../interfaces';
-import { IMetricValue } from '../../database-metrics/interfaces/metric-value.interface';
+import { IMetricValue } from '../../service-metrics/interfaces/metric-value.interface';
 import { mongoDbDefinition } from './database-definitions/mongodb-definition';
 import { rabbitMqDefinition } from './database-definitions/rabbitmq-definition';
 import { redisDefinition } from './database-definitions/redis-definition';

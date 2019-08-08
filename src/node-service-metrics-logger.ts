@@ -2,9 +2,9 @@ import { ServiceMetricsEvent, ServiceType } from './enums';
 import { logger } from './helpers/logger';
 import { PubSub } from './helpers/pub-sub';
 import { IMetricsResponse, IServiceCredentials, INodeServiceMetricsLoggerConfig } from './interfaces';
-import { MongoDbAgent } from './modules/database-metrics/mongodb/agent';
-import { RabbitMqAgent } from './modules/database-metrics/rabbitmq/agent';
-import { RedisAgent } from './modules/database-metrics/redis/agent';
+import { MongoDbAgent } from './modules/service-metrics/mongodb/agent';
+import { RabbitMqAgent } from './modules/service-metrics/rabbitmq/agent';
+import { RedisAgent } from './modules/service-metrics/redis/agent';
 import { ITransportInterface } from './modules/transports/interfaces/transport-interface';
 
 export class NodeServiceMetricsLogger extends PubSub {
