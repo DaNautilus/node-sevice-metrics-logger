@@ -16,9 +16,6 @@
   <a href="https://sonarcloud.io/dashboard/index/DaNautilus_node-service-metrics-logger">
     <img src="https://sonarcloud.io/api/project_badges/measure?project=DaNautilus_node-service-metrics-logger&metric=alert_status" alt="quality gate" />
   </a>
-  <a href="https://greenkeeper.io/">
-    <img src="https://badges.greenkeeper.io/DaNautilus/node-service-metrics-logger.svg" alt="greenkeeper" />
-  </a>
 </p>
 
 <br />
