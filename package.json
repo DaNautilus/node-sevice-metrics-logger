@@ -1,7 +1,7 @@
 {
-  "name": "database-metrics-logger",
-  "version": "0.8.2",
-  "description": "log database metrics",
+  "name": "node-service-metrics-logger",
+  "version": "0.0.0",
+  "description": "log service metrics",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "files": [
@@ -18,12 +18,13 @@
     "sonarconfig": "rimraf sonar-project.properties && node ./scripts/sonar-config.js"
   },
   "keywords": [
+    "service",
     "database",
     "typescript",
     "cloudfoundry",
-    "service",
     "metrics",
-    "logger"
+    "logger",
+    "datadog"
   ],
   "engines": {
     "node": ">=8.15.1"
@@ -51,7 +52,7 @@
     ]
   },
   "sonar": {
-    "projectKey": "DaNautilus_database-metrics-logger",
+    "projectKey": "DaNautilus_node-service-metrics-logger",
     "sources": "src",
     "reportPaths": "test/coverage/lcov.info"
   },
@@ -61,7 +62,7 @@
       "email": "robert.kleger@bobb.io"
     }
   ],
-  "repository": "git+ssh://git@github.com:DaNautilus/database-metrics-logger.git",
+  "repository": "git@github.com:DaNautilus/node-service-metrics-logger.git",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^24.0.17",
