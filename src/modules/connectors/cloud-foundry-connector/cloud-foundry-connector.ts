@@ -7,6 +7,7 @@ import { CloudFoundryServiceType } from './enums';
 import { mapMongodbCredentials } from './mappers/mongodb-credentials.mapper';
 import { mapRedisCredentials } from './mappers/redis-credentials.mapper';
 import { serviceTypeMapper } from './mappers/service-types.mapper';
+import { mapRabbitMqCredentials } from './mappers/rabbitmq-credentials.mapper';
 
 export interface ICloudFoundryOptions {
   vcap?: {};
@@ -49,6 +50,8 @@ export class CloudFoundryConnector {
         return mapMongodbCredentials(cloudFoundryService);
       case ServiceType.Redis:
         return mapRedisCredentials(cloudFoundryService);
+      case ServiceType.RabbitMq:
+        return mapRabbitMqCredentials(cloudFoundryService);
       default:
         return;
     }

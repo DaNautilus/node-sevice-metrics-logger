@@ -24,7 +24,23 @@ declare module 'cfenv' {
     replica_set?: string;
   }
 
-  export type TCredentials = IMongodbCredentials | IRedisCredentials;
+  export interface IRabbitMqManagementCredentials {
+    uri: string;
+    uris: string;
+    username: string;
+    password: string;
+    host: string;
+    hosts: string[];
+    port: number;
+    path: string;
+    ssl: boolean;
+  }
+
+  export interface IRabbitMqCredentials {
+    management: IRabbitMqManagementCredentials
+  }
+
+  export type TCredentials = IMongodbCredentials | IRedisCredentials | IRabbitMqCredentials;
 
   export interface IService<> {
     label: string;
@@ -37,6 +53,7 @@ declare module 'cfenv' {
     credentials: TCredentials;
     syslog_drain_url: string;
     volume_mounts: string[];
+    [x: string]: any
   }
 
   export interface IApp {

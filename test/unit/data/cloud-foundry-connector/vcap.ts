@@ -50,6 +50,38 @@ export const vcap = {
         volume_mounts: [],
       },
     ],
+    'rabbitmqent': [
+      {
+        label: 'rabbitmqent',
+        provider: undefined,
+        plan: 'usage',
+        name: 'my-fancy-rabbitmq-service',
+        tags: [
+          'rabbitmq',
+        ],
+        instance_name: 'my-fancy-rabbitmq-service',
+        binding_name: undefined,
+        credentials: {
+          management: {
+            uri: 'http://your-username:your-password@your-rabbitmq-host:77777/api',
+            uris: [
+              'http://your-username:your-password@your-rabbitmq-host:77777/api'
+            ],
+            username: 'your-username',
+            password: 'your-password',
+            host: 'your-rabbitmq-host',
+            hosts: [
+              'your-rabbitmq-host',
+            ],
+            port: 77777,
+            path: '/api',
+            ssl: false,
+          },
+        },
+        syslog_drain_url: undefined,
+        volume_mounts: [],
+      },
+    ],
     'unsupported-service': [
       {
         label: 'unsupported-service',
@@ -63,7 +95,7 @@ export const vcap = {
         binding_name: undefined,
         credentials: {
           host: 'unsupported-service-host',
-          port: 77777,
+          port: 88888,
           user: 'unsupported-user',
           password: 'unsupported-password',
         },
