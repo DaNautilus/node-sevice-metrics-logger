@@ -1,23 +1,23 @@
-<h1 align="center">Database Metrics Logger</h1>
+<h1 align="center">Node Service Metrics Logger</h1>
 
 <p align="center">
-  <a href="https://david-dm.org/DaNautilus/database-metrics-logger">
-    <img src="https://david-dm.org/DaNautilus/database-metrics-logger/status.svg?style=flat" alt="dependency" />
+  <a href="https://david-dm.org/DaNautilus/node-service-metrics-logger">
+    <img src="https://david-dm.org/DaNautilus/node-service-metrics-logger/status.svg?style=flat" alt="dependency" />
   </a>
-  <a href="https://travis-ci.org/DaNautilus/database-metrics-logger">
-    <img src="https://travis-ci.org/DaNautilus/database-metrics-logger.svg?branch=master" alt="travis" />
+  <a href="https://travis-ci.org/DaNautilus/node-service-metrics-logger">
+    <img src="https://travis-ci.org/DaNautilus/node-service-metrics-logger.svg?branch=master" alt="travis" />
   </a>
-  <a href="https://ci.appveyor.com/project/DaNautilus/database-metrics-logger/branch/master">
+  <a href="https://ci.appveyor.com/project/DaNautilus/node-service-metrics-logger/branch/master">
     <img src="https://ci.appveyor.com/api/projects/status/dt0uy3lkpt22u4pu?svg=true&passingText=windows%20passing&pendingText=windows%20pending&failingText=windows%20failing" alt="appveyor" />
   </a>
-  <a href="https://sonarcloud.io/dashboard?id=DaNautilus_database-metrics-logger">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=DaNautilus_database-metrics-logger&metric=coverage" alt="coverage" />
+  <a href="https://sonarcloud.io/dashboard?id=DaNautilus_node-service-metrics-logger">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=DaNautilus_node-service-metrics-logger&metric=coverage" alt="coverage" />
   </a>
-  <a href="https://sonarcloud.io/dashboard/index/DaNautilus_database-metrics-logger">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=DaNautilus_database-metrics-logger&metric=alert_status" alt="quality gate" />
+  <a href="https://sonarcloud.io/dashboard/index/DaNautilus_node-service-metrics-logger">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=DaNautilus_node-service-metrics-logger&metric=alert_status" alt="quality gate" />
   </a>
   <a href="https://greenkeeper.io/">
-    <img src="https://badges.greenkeeper.io/DaNautilus/database-metrics-logger.svg" alt="greenkeeper" />
+    <img src="https://badges.greenkeeper.io/DaNautilus/node-service-metrics-logger.svg" alt="greenkeeper" />
   </a>
 </p>
 
@@ -27,7 +27,8 @@
 
 ## ❯ Why
 
-You want to log service metrics from your application on Cloud Foundry? - Yes? - Here you are 🙌 !!
+You want to log service metrics from your application and push it to a metrics provided? - Yes? - Here you are 🙌 !!  
+Currently there's only support for `Datadog` as metrics provider.
 
 ![divider](./divider.png)
 
@@ -59,39 +60,39 @@ You want to log service metrics from your application on Cloud Foundry? - Yes? -
 Install library by using `npm`
 
 ```shell
-npm install database-metrics-logger
+npm install node-service-metrics-logger
 ```
 
 or by using `yarn`
 
 ```shell
-yarn add database-metrics-logger
+yarn add node-service-metrics-logger
 ```
 
 ### How to use
 
-#### Step 1: Import DatabaseMetricsLogger
+#### Step 1: Import NodeServiceMetricsLogger
 
 Using `CommonJS` module loader:
 
 ```javascript
-const DatabaseMetricsLogger = require('database-metrics-logger');
+const NodeServiceMetricsLogger = require('node-service-metrics-logger);
 ```
 
 Using `ES6` module loader:
 
 ```javascript
-import { DatabaseMetricsLogger } from 'database-metrics-logger';
+import { NodeServiceMetricsLogger } from 'node-service-metrics-logger;
 ```
 
 #### Step 2: Create new instance of CfServiceMetricsLogger
 
-Create new instance of `DatabaseMetricsLogger` and provide options:
+Create new instance of `NodeServiceMetricsLogger` and provide options:
 
 ```javascript
-const databaseCredentials = [
+const serviceCredentials = [
   {
-    databaseType: 'mongodb',
+    serviceType: 'mongodb',
     host: 'your-mongodb-host',
     username: 'user',
     password: 'this-is-secret',
@@ -99,14 +100,14 @@ const databaseCredentials = [
     database: 'your-database-name',
   },
   {
-    databaseType: 'redis',
+    serviceType: 'redis',
     host: 'your-redis-host',
     port: 6379,
     password: 'this-is-secret',
   }
 ];
 
-const databaseMetricsLogger = new DatabaseMetricsLogger({databaseCredentials});
+const nodeServiceMetricsLogger = new NodeServiceMetricsLogger({serviceCredentials});
 ```
 
 #### Step 3: Subscribe to receive service metrics and general logs
@@ -114,7 +115,7 @@ const databaseMetricsLogger = new DatabaseMetricsLogger({databaseCredentials});
 Subscribe `metrics` to receive service metrics data:
 
 ```javascript
-databaseMetricsLogger.subscribe('metrics', data => {
+nodeServiceMetricsLogger.subscribe('metrics', data => {
   // do some fancy stuff with your metrics
 });
 ```
@@ -122,23 +123,23 @@ databaseMetricsLogger.subscribe('metrics', data => {
 Subscribe `logs` to receive general application logs:
 
 ```javascript
-databaseMetricsLogger.subscribe('logs', {message, level} => {
+nodeServiceMetricsLogger.subscribe('logs', {message, level} => {
   console[level](message));
 });
 ```
 
 #### Step 3: Start and stop service metrics logging
 
-Start database metrics logging:
+Start service metrics logging:
 
 ```javascript
-databaseMetricsLogger.start();
+nodeServiceMetricsLogger.start();
 ```
 
 Stop service metrics logging:
 
 ```javascript
-databaseMetricsLogger.stop();
+nodeServiceMetricsLogger.stop();
 ```
 
 ![divider](./divider.png)
@@ -147,16 +148,16 @@ databaseMetricsLogger.stop();
 
 ### Credentials Options
 
-| Option                | Description                                                             | Default Value |
-| --------------------- | ----------------------------------------------------------------------- | ------------: |
-| `databaseType`        | Type of database. Currently only `mongodb` `redis` are available        |               |
-| `name`                | Name of credential to identify your specific database in a mass of logs | your `host`   |
-| `host`                | Host of database                                                        |               |
-| `port` (optional)     | Port of database                                                        |               |
-| `uri` (optional)      | Instead of port and host, you can provide an URI                        |               |
-| `username` (optional) | Username                                                                |               |
-| `password` (optional) | Password                                                                |               |
-| `interval` (optional) | Database metrics polling interval in ms                                 | `10000`       | 
+| Option                | Description                                                                    | Default Value |
+| --------------------- | ------------------------------------------------------------------------------ | ------------: |
+| `serviceType`         | Type of service. Currently only `mongodb`, `redis` and `rabbitmq` are available |               |
+| `name`                | Name of credential to identify your specific service in a mass of logs          | your `host`   |
+| `host`                | Host of service                                                                 |               |
+| `port` (optional)     | Port of service                                                                 |               |
+| `uri` (optional)      | Instead of port and host, you can provide an URI                                |               |
+| `username` (optional) | Username                                                                        |               |
+| `password` (optional) | Password                                                                        |               |
+| `interval` (optional) | Service metrics polling interval in ms                                          | `10000`       | 
 
 ### Methods
 
@@ -179,7 +180,7 @@ databaseMetricsLogger.stop();
 
 ## ❯ Cloud Connectors
 
-You can use a cloud connector to log metrics from your cloud instance databases.
+You can use a cloud connector to log metrics from your cloud instance services.
 
 ### Cloud Foundry
 
@@ -200,27 +201,27 @@ You can use a cloud connector to log metrics from your cloud instance databases.
 
 ```javascript
 // import using `CommonJS` module loader:
-const { CloudFoundryConnector, DatabaseMetricsLogger } = require('cf-service-metrics-logger');
+const { CloudFoundryConnector, NodeServiceMetricsLogger } = require('node-service-metrics-logger');
 
 // or import using `ES6` module loader:
-import { CloudFoundryConnector, DatabaseMetricsLogger } from 'cf-service-metrics-logger';
+import { CloudFoundryConnector, NodeServiceMetricsLogger } from 'node-service-metrics-logger';
 
 const options = {
   vcapFile: 'your-vcap-file-path/vcap.json' 
 };
 
 const cloudFoundryConnector = new CloudFoundryConnector(options);
-const databaseCredentials = cloudFoundryConnector.getCredentials();
-const databaseMetricsLogger = new DatabaseMetricsLogger({databaseCredentials});
+const serviceCredentials = cloudFoundryConnector.getCredentials();
+const nodeServiceMetricsLogger = new NodeServiceMetricsLogger({serviceCredentials});
 
-databaseMetricsLogger.subscribe('metrics', data => {
+nodeServiceMetricsLogger.subscribe('metrics', data => {
   // do some fancy stuff with your metrics
 });
 
-databaseMetricsLogger.start();
+nodeServiceMetricsLogger.start();
 
 setTimeout(() => {
-  databaseMetricsLogger.stop();
+  nodeServiceMetricsLogger.stop();
 }, 30000);
 ```
 
@@ -236,10 +237,10 @@ With transports you can log metrics to metrics services like Datadog. Datadog is
 
 ```javascript
 // import using `CommonJS` module loader:
-const { DatabaseMetricsLogger, DatadogTransport } = require('database-metrics-logger');
+const { NodeServiceMetricsLogger, DatadogTransport } = require('node-service-metrics-logger');
 
 // or import using `ES6` module loader:
-import { DatabaseMetricsLogger, DatadogTransport } from 'database-metrics-logger';
+import { NodeServiceMetricsLogger, DatadogTransport } from 'node-service-metrics-logger';
 
 const datadogTransport = new DatadogTransport({
   apiKey: 'datadog-api-key',
@@ -248,9 +249,9 @@ const datadogTransport = new DatadogTransport({
   tags: ['env:development']
 });
 
-const databaseCredentials = [
+const serviceCredentials = [
   {
-    databaseType: 'mongodb',
+    serviceType: 'mongodb',
     host: 'your-mongodb-host',
     username: 'user',
     password: 'this-is-secret',
@@ -259,12 +260,12 @@ const databaseCredentials = [
   }
 ];
 
-const databaseMetricsLogger = new DatabaseMetricsLogger({
-  databaseCredentials,
+const nodeServiceMetricsLogger = new NodeServiceMetricsLogger({
+  serviceCredentials,
   transports: [datadogTransport],
 });
 
-databaseMetricsLogger.start();
+nodeServiceMetricsLogger.start();
 ```
 
 ## ❯ Development
