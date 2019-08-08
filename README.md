@@ -43,10 +43,11 @@ Currently there's only support for `Datadog` as metrics provider.
 
 ## ❯ Supported Services
 
-| Service     | Version |
-| ----------- | ------- |
-| **MongoDB** | >=3.6.6 |
-| **Redis**   | >=2.3.9 |
+| Service      | Version  |
+| ------------ | -------- |
+| **MongoDB**  | >=3.6.6  |
+| **Redis**    | >=2.3.9  |
+| **RabbitMQ** | >=3.7.15 |
 
 ![divider](./divider.png)
 
