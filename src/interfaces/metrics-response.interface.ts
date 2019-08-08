@@ -1,7 +1,7 @@
-import { DatabaseType } from '../enums';
+import { ServiceType } from '../enums';
 
 export interface IMetricsResponse {
-  databaseType: DatabaseType;
+  serviceType: ServiceType;
   name: string;
   metrics: {};
 }

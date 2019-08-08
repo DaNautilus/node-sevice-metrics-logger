@@ -11,6 +11,7 @@ export class Poller extends EventEmitter {
   public static pollerIds = {
     mongodb: 'mongodb',
     redis: 'redis',
+    rabbitmq: 'rabbitmq',
   };
 
   private static eventIds = {

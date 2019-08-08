@@ -2,16 +2,16 @@ import { MongoClient } from 'mongodb';
 
 import { logger } from '../../../helpers/logger';
 import { Poller } from '../../../helpers/poller';
-import { IDatabaseCredentials } from '../../../interfaces';
-import { DatabaseMetrics } from '../database-metrics';
+import { IServiceCredentials } from '../../../interfaces';
 import { mongoDbDefinitions } from './definitions';
 import { getReplicationInfo } from './helpers/get-replication-info';
+import { ServiceMetrics } from '../service-metrics';
 
-export class MongoDbAgent extends DatabaseMetrics {
+export class MongoDbAgent extends ServiceMetrics {
   private mongoClient?: MongoClient;
 
   constructor(
-    credentials: IDatabaseCredentials
+    credentials: IServiceCredentials
   ) {
     super(credentials, mongoDbDefinitions);
   }

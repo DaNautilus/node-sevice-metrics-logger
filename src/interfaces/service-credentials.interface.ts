@@ -1,7 +1,7 @@
-import { DatabaseType } from '../enums/database-type.enum';
+import { ServiceType } from '../enums';
 
-export interface IDatabaseCredentials {
-  databaseType: DatabaseType;
+export interface IServiceCredentials {
+  serviceType: ServiceType;
   name?: string;
   host?: string;
   port?: number;

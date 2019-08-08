@@ -1,7 +1,7 @@
 import { LogStatus } from '../enums';
-import { IDatabaseDefinition } from '../interfaces/database-definition.interface';
+import { IServiceDefinition } from '../interfaces/service-definition.interface';
 
-export const mongoDbDefinition: IDatabaseDefinition = {
+export const mongoDbDefinition: IServiceDefinition = {
   metricMaps: {
     // read requests per second
     'mongodb.opcounters.getmoreps': 'serverStatus.opcounters.getmore',
