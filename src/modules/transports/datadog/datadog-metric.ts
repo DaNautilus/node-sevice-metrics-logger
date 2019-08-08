@@ -16,8 +16,8 @@ export class DatadogMetric extends DatadogTransportAbstract {
   }
 
   private getMetricsSeries(metrics: IMetricsResponse): IDatadogMetric[] {
-    const databaseDefinition = this.getServiceDefinition(metrics.serviceType);
-    const metricKeys = Object.keys(databaseDefinition.metricMaps);
+    const serviceDefinition = this.getServiceDefinition(metrics.serviceType);
+    const metricKeys = Object.keys(serviceDefinition.metricMaps);
     const timeStamp = new Date().getTime() / 1000;
 
     let metricsSeries = [];
@@ -28,8 +28,8 @@ export class DatadogMetric extends DatadogTransportAbstract {
   }
 
   private mapMetricValues(metricKey: string, metrics: IMetricsResponse, timeStamp: number): IDatadogMetric[] {
-    const databaseDefinition = this.getServiceDefinition(metrics.serviceType);
-    const metricValues = metrics.metrics[databaseDefinition.metricMaps[metricKey]] || [];
+    const serviceDefinition = this.getServiceDefinition(metrics.serviceType);
+    const metricValues = metrics.metrics[serviceDefinition.metricMaps[metricKey]] || [];
 
     return metricValues.map(metricValue => {
       const points: TTimeSeriesPoints[] = [[timeStamp, metricValue.value]];

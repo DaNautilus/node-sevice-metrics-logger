@@ -22,7 +22,7 @@ export class NodeServiceMetricsLogger extends PubSub {
     logger.subscribe(undefined, value => this.publish(ServiceMetricsEvent.Logs, value));
 
     this.serviceCredentials.forEach(credentials => {
-      const agent = this.getDatabaseMetricsAgent(credentials);
+      const agent = this.getServiceMetricsAgent(credentials);
 
       if (agent) {
         agent.getMetrics().subscribe(undefined, (metrics: IMetricsResponse) => {
@@ -42,7 +42,7 @@ export class NodeServiceMetricsLogger extends PubSub {
     logger.unsubscribeAll();
   }
 
-  private getDatabaseMetricsAgent(credentials: IServiceCredentials): any {
+  private getServiceMetricsAgent(credentials: IServiceCredentials): any {
     switch (credentials.serviceType) {
       case ServiceType.Mongodb:
         return new MongoDbAgent(credentials);

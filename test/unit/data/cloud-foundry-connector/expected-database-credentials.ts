@@ -1,10 +1,8 @@
 import {
     CloudFoundryServiceType
 } from '../../../../src/modules/connectors/cloud-foundry-connector';
-import {
-    serviceTypeDatabaseTypeMapper
-} from '../../../../src/modules/connectors/cloud-foundry-connector/mappers/service-types.mapper';
 import { vcap } from './vcap';
+import { serviceTypeMapper } from '../../../../src/modules/connectors/cloud-foundry-connector/mappers/service-types.mapper';
 
 const mongodbService = vcap.services[CloudFoundryServiceType.Mongodb2][0];
 const mongodbCredentials = mongodbService.credentials;
@@ -14,7 +12,7 @@ const redisCredentials = redisService.credentials;
 
 export const expectedCredentials = [
   {
-    databaseType: serviceTypeDatabaseTypeMapper.get(mongodbService.label as CloudFoundryServiceType),
+    serviceType: serviceTypeMapper.get(mongodbService.label as CloudFoundryServiceType),
     name: mongodbService.name,
     host: mongodbCredentials.host,
     uri: mongodbCredentials.database_uri,
@@ -23,7 +21,7 @@ export const expectedCredentials = [
     database: mongodbCredentials.database,
   },
   {
-    databaseType: serviceTypeDatabaseTypeMapper.get(redisService.label as CloudFoundryServiceType),
+    serviceType: serviceTypeMapper.get(redisService.label as CloudFoundryServiceType),
     name: redisService.name,
     host: redisCredentials.host,
     port: redisCredentials.port,
