@@ -4,7 +4,7 @@ import { IServiceCredentials, IMetricsResponse } from '../../interfaces';
 import { IMetricDefinition } from './interfaces/metric-definition.interface';
 import { IMetricValue } from './interfaces/metric-value.interface';
 
-export abstract class DatabaseMetrics extends PubSub {
+export abstract class ServiceMetrics extends PubSub {
   private pollers: Poller[] = [];
   private lastMetrics = new Map<string, IMetricValue[]>();
 
@@ -46,7 +46,7 @@ export abstract class DatabaseMetrics extends PubSub {
 
   protected publishMetrics(metrics: {}): void {
     const valueToPublish: IMetricsResponse = {
-      databaseType: this.credentials.databaseType,
+      serviceType: this.credentials.serviceType,
       name: this.credentials.name,
       metrics: this.aggregateMetrics(metrics),
     };

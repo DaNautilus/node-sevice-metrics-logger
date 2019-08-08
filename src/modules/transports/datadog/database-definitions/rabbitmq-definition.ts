@@ -1,7 +1,7 @@
 import { LogStatus } from '../enums';
-import { IDatabaseDefinition } from '../interfaces/database-definition.interface';
+import { IServiceDefinition } from '../interfaces/service-definition.interface';
 
-export const rabbitMqDefinition: IDatabaseDefinition = {
+export const rabbitMqDefinition: IServiceDefinition = {
   metricMaps: {
     // status by host
     // 'rabbitmq.aliveness': '',

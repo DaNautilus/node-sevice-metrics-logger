@@ -6,15 +6,15 @@ import { logger } from '../../../helpers/logger';
 import { calculatePercentile } from '../../../helpers/percentile';
 import { Poller } from '../../../helpers/poller';
 import { IServiceCredentials } from '../../../interfaces';
-import { DatabaseMetrics } from '../database-metrics';
 import { redisDefinitions } from './definitions';
+import { ServiceMetrics } from '../service-metrics';
 
 enum RedisEvent {
   Connect = 'connect',
   Error = 'error',
 }
 
-export class RedisAgent extends DatabaseMetrics {
+export class RedisAgent extends ServiceMetrics {
   private redisClient?: Redis.RedisClient;
 
   constructor(

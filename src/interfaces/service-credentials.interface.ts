@@ -1,7 +1,7 @@
 import { ServiceType } from '../enums';
 
 export interface IServiceCredentials {
-  databaseType: ServiceType;
+  serviceType: ServiceType;
   name?: string;
   host?: string;
   port?: number;

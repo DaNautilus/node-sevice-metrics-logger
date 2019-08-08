@@ -2,15 +2,15 @@ import { logger } from '../../../helpers/logger';
 import { Poller } from '../../../helpers/poller';
 import { Rest } from '../../../helpers/rest';
 import { IServiceCredentials } from '../../../interfaces';
-import { DatabaseMetrics } from '../database-metrics';
 import { rabbitMqDefinitions } from './definitions';
 import { IMetrics } from './interfaces/metrics.interface';
 import { IOverview } from './interfaces/overview/overview.interface';
 import { IQueue } from './interfaces/queue/queue.interface';
+import { ServiceMetrics } from '../service-metrics';
 
 const rabbitMqDefaultInterval = 60000;
 
-export class RabbitMqAgent extends DatabaseMetrics {
+export class RabbitMqAgent extends ServiceMetrics {
   private rest: Rest;
 
   constructor(

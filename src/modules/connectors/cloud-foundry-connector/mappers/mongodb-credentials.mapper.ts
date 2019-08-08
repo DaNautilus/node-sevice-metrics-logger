@@ -8,7 +8,7 @@ export const mapMongodbCredentials = (cloudFoundryService: cfenv.IService): ISer
   const credentials = cloudFoundryService.credentials as cfenv.IMongodbCredentials;
 
   return {
-    databaseType: serviceTypeDatabaseTypeMapper.get(CloudFoundryServiceType.Mongodb2),
+    serviceType: serviceTypeDatabaseTypeMapper.get(CloudFoundryServiceType.Mongodb2),
     name: cloudFoundryService.name,
     host: cloudFoundryService.credentials.host,
     uri: credentials.database_uri,

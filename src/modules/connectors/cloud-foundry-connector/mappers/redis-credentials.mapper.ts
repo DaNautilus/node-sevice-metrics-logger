@@ -8,7 +8,7 @@ export const mapRedisCredentials = (cloudFoundryService: cfenv.IService): IServi
   const credentials = cloudFoundryService.credentials as cfenv.IRedisCredentials;
 
   return {
-    databaseType: serviceTypeDatabaseTypeMapper.get(CloudFoundryServiceType.Redis2),
+    serviceType: serviceTypeDatabaseTypeMapper.get(CloudFoundryServiceType.Redis2),
     name: cloudFoundryService.name,
     host: credentials.host,
     port: credentials.port,

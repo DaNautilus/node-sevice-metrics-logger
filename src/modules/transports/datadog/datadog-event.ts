@@ -19,7 +19,7 @@ export class DatadogEvent extends DatadogTransportAbstract {
   }
 
   private getEvents(metrics: IMetricsResponse): IEventRequest[] {
-    const databaseDefinition = this.getDatabaseDefinition(metrics.databaseType);
+    const databaseDefinition = this.getServiceDefinition(metrics.serviceType);
 
     return databaseDefinition.eventMaps && databaseDefinition.eventMaps.length
       ? databaseDefinition.eventMaps.map(eventMap => this.mapEvent(metrics, eventMap))

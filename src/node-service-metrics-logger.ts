@@ -43,7 +43,7 @@ export class NodeServiceMetricsLogger extends PubSub {
   }
 
   private getDatabaseMetricsAgent(credentials: IServiceCredentials): any {
-    switch (credentials.databaseType) {
+    switch (credentials.serviceType) {
       case ServiceType.Mongodb:
         return new MongoDbAgent(credentials);
       case ServiceType.Redis:
