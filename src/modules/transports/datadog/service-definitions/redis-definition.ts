@@ -1,7 +1,7 @@
 import { LogStatus } from '../enums';
-import { IDatabaseDefinition } from '../interfaces/database-definition.interface';
+import { IServiceDefinition } from '../interfaces/service-definition.interface';
 
-export const redisDefinition: IDatabaseDefinition = {
+export const redisDefinition: IServiceDefinition = {
   metricMaps: {
     // unsaved changes
     'redis.rdb.changes_since_last': 'rdb_changes_since_last_save',

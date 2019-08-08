@@ -28,10 +28,10 @@ export class DatadogLog extends DatadogTransportAbstract {
   }
 
   private getLogs(metrics: IMetricsResponse): ILogRequest[] {
-    const databaseDefinition = this.getDatabaseDefinition(metrics.databaseType);
+    const serviceDefinition = this.getServiceDefinition(metrics.serviceType);
 
-    return databaseDefinition.logs && databaseDefinition.logs.length
-      ? databaseDefinition.logs.map(log => this.mapLog(metrics, log))
+    return serviceDefinition.logs && serviceDefinition.logs.length
+      ? serviceDefinition.logs.map(log => this.mapLog(metrics, log))
       : [];
   }
 

@@ -1,12 +1,13 @@
 import * as cfenv from 'cfenv';
 
-import { DatabaseType } from '../../../enums';
+import { ServiceType } from '../../../enums';
 import { logger } from '../../../helpers/logger';
-import { IDatabaseCredentials } from '../../../interfaces';
+import { IServiceCredentials } from '../../../interfaces';
 import { CloudFoundryServiceType } from './enums';
 import { mapMongodbCredentials } from './mappers/mongodb-credentials.mapper';
 import { mapRedisCredentials } from './mappers/redis-credentials.mapper';
-import { serviceTypeDatabaseTypeMapper } from './mappers/service-types.mapper';
+import { serviceTypeMapper } from './mappers/service-types.mapper';
+import { mapRabbitMqCredentials } from './mappers/rabbitmq-credentials.mapper';
 
 export interface ICloudFoundryOptions {
   vcap?: {};
@@ -22,11 +23,11 @@ export class CloudFoundryConnector {
     this.appEnvironment = cfenv.getAppEnv({ vcap: options.vcap, vcapFile: options.vcapFile });
   }
 
-  public getCredentials(): IDatabaseCredentials[] {
+  public getCredentials(): IServiceCredentials[] {
     const cloudFoundryServices = this.getCloudFoundryServices();
 
     return cloudFoundryServices
-      .filter(service => !!serviceTypeDatabaseTypeMapper.get(service.label as CloudFoundryServiceType))
+      .filter(service => !!serviceTypeMapper.get(service.label as CloudFoundryServiceType))
       .map(service => this.mapCloudFoundryCredentials(service));
   }
 
@@ -41,14 +42,16 @@ export class CloudFoundryConnector {
     return serviceValues;
   }
 
-  private mapCloudFoundryCredentials(cloudFoundryService: cfenv.IService): IDatabaseCredentials | undefined {
-    const databaseType = serviceTypeDatabaseTypeMapper.get(cloudFoundryService.label as CloudFoundryServiceType);
+  private mapCloudFoundryCredentials(cloudFoundryService: cfenv.IService): IServiceCredentials | undefined {
+    const serviceType = serviceTypeMapper.get(cloudFoundryService.label as CloudFoundryServiceType);
 
-    switch (databaseType) {
-      case DatabaseType.Mongodb:
+    switch (serviceType) {
+      case ServiceType.Mongodb:
         return mapMongodbCredentials(cloudFoundryService);
-      case DatabaseType.Redis:
+      case ServiceType.Redis:
         return mapRedisCredentials(cloudFoundryService);
+      case ServiceType.RabbitMq:
+        return mapRabbitMqCredentials(cloudFoundryService);
       default:
         return;
     }

@@ -1,12 +1,13 @@
-import { DatabaseType } from '../../../enums';
+import { ServiceType } from '../../../enums';
 import { Rest } from '../../../helpers/rest';
 import { IMetricsResponse } from '../../../interfaces';
-import { IMetricValue } from '../../database-metrics/interfaces/metric-value.interface';
-import { mongoDbDefinition } from './database-definitions/mongodb-definition';
-import { redisDefinition } from './database-definitions/redis-definition';
+import { IMetricValue } from '../../service-metrics/interfaces/metric-value.interface';
+import { mongoDbDefinition } from './service-definitions/mongodb-definition';
+import { rabbitMqDefinition } from './service-definitions/rabbitmq-definition';
+import { redisDefinition } from './service-definitions/redis-definition';
 import { DefaultHost } from './enums/default-hosts.enum';
-import { IDatabaseDefinition } from './interfaces/database-definition.interface';
 import { IDatadogOptions } from './interfaces/datadog-options';
+import { IServiceDefinition } from './interfaces/service-definition.interface';
 
 export abstract class DatadogTransportAbstract {
   public rest: Rest;
@@ -20,12 +21,14 @@ export abstract class DatadogTransportAbstract {
     });
   }
 
-  public getDatabaseDefinition(databaseType: DatabaseType): IDatabaseDefinition {
-    switch (databaseType) {
-      case DatabaseType.Redis:
+  public getServiceDefinition(serviceType: ServiceType): IServiceDefinition {
+    switch (serviceType) {
+      case ServiceType.Redis:
         return redisDefinition;
-      case DatabaseType.Mongodb:
+      case ServiceType.Mongodb:
         return mongoDbDefinition;
+      case ServiceType.RabbitMq:
+        return rabbitMqDefinition;
       default:
         return;
     }
@@ -35,19 +38,19 @@ export abstract class DatadogTransportAbstract {
     return [
       ...this.mapTags(metrics),
       ...(metricValue && metricValue.tags || []),
-      `database-type:${metrics.databaseType}`,
+      `service-type:${metrics.serviceType}`,
       `service-name:${metrics.name}`,
       ...this.config.tags || [],
     ];
   }
 
   private mapTags(metrics: IMetricsResponse): string[] {
-    const databaseDefinition = this.getDatabaseDefinition(metrics.databaseType);
-    const tagKeys = databaseDefinition.tagMaps ? Object.keys(databaseDefinition.tagMaps) : [];
+    const serviceDefinition = this.getServiceDefinition(metrics.serviceType);
+    const tagKeys = serviceDefinition.tagMaps ? Object.keys(serviceDefinition.tagMaps) : [];
     let tags = [];
 
     tagKeys.forEach(tagKey => {
-      const metricValues = metrics.metrics[databaseDefinition.tagMaps[tagKey]];
+      const metricValues = metrics.metrics[serviceDefinition.tagMaps[tagKey]];
       tags = [...tags, ...this.getTagsFromMetricValues(tagKey, metricValues)];
     });
 

@@ -1,4 +1,4 @@
 export * from './enums';
 export * from './interfaces';
-export * from './database-metrics-logger';
+export * from './node-service-metrics-logger';
 export * from './modules';
