@@ -10,7 +10,7 @@ const mongodbCredentials = mongodbService.credentials;
 const redisService = vcap.services[CloudFoundryServiceType.Redis2][0];
 const redisCredentials = redisService.credentials;
 
-export const expectedCredentials = [
+export const expectedServiceCredentials = [
   {
     serviceType: serviceTypeMapper.get(mongodbService.label as CloudFoundryServiceType),
     name: mongodbService.name,
