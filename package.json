@@ -1,6 +1,6 @@
 {
   "name": "node-service-metrics-logger",
-  "version": "0.0.1-beta.3",
+  "version": "0.0.1",
   "description": "log service metrics",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
