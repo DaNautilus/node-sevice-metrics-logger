@@ -1,25 +1,43 @@
 os:
 - linux
+
 language: node_js
+
 node_js:
 - lts/carbon
 - lts/dubnium
 - stable
+
 cache:
   directories:
   - node_modules
+
 after_success:
 - yarn run build
 - yarn run sonarconfig
 - sonar-scanner
+
+-: &npm_deploy
+    provider: npm
+    email: robert.kleger@bobb.io
+    skip_cleanup: true
+    api_key: $NPM_TOKEN
+    wait-until-deployed: true
+
 deploy:
-  provider: npm
-  email: robert.kleger@bobb.io
-  skip_cleanup: true
-  on:
-    tags: true
-    branch: master
-  api_key: $NPM_TOKEN
+  - <<: *npm_deploy
+    on:
+      tags: true
+      branch: master
+      condition: "! $TRAVIS_TAG =~ -(beta).[0-9]+$"
+
+  - <<: *npm_deploy
+    on:
+      tags: true
+      tag: beta
+      branch: master
+      condition: "$TRAVIS_TAG =~ -(beta).[0-9]+$"
+
 addons:
   sonarcloud:
     organization: danautilus-github
