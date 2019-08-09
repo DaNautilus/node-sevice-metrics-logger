@@ -11,7 +11,7 @@ const redisService = vcap.services[CloudFoundryServiceType.Redis2][0];
 const redisCredentials = redisService.credentials;
 
 const rabbitMqService = vcap.services[CloudFoundryServiceType.RabbitMq][0];
-const rabbitMqManagementCredentials = rabbitMqService.credentials.management;
+const rabbitMqCredentials = rabbitMqService.credentials;
 
 export const expectedServiceCredentials = [
   {
@@ -33,10 +33,10 @@ export const expectedServiceCredentials = [
   {
     serviceType: serviceTypeMapper.get(rabbitMqService.label as CloudFoundryServiceType),
     name: rabbitMqService.name,
-    uri: rabbitMqManagementCredentials.uri,
-    host: rabbitMqManagementCredentials.host,
-    port: rabbitMqManagementCredentials.port,
-    username: rabbitMqManagementCredentials.username,
-    password: rabbitMqManagementCredentials.password,
+    uri: rabbitMqCredentials.http_api_uri,
+    host: rabbitMqCredentials.hostname,
+    port: rabbitMqCredentials.management_port,
+    username: rabbitMqCredentials.username,
+    password: rabbitMqCredentials.password,
   },
 ];

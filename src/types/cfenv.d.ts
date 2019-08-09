@@ -24,20 +24,22 @@ declare module 'cfenv' {
     replica_set?: string;
   }
 
-  export interface IRabbitMqManagementCredentials {
-    uri: string;
-    uris: string;
-    username: string;
-    password: string;
-    host: string;
-    hosts: string[];
-    port: number;
-    path: string;
-    ssl: boolean;
-  }
-
   export interface IRabbitMqCredentials {
-    management: IRabbitMqManagementCredentials
+    uri: string;
+    uris: string[];
+    vhost:string;
+    username:string;
+    ssl: boolean;
+    password: string;
+    hostname: string;
+    hostnames: string[];
+    port: number;
+    amqp_port: number;
+    mqtt_port: number;
+    stomp_port: number;
+    management_port: number;
+    http_api_uri: string;
+    http_api_uris: string[];
   }
 
   export type TCredentials = IMongodbCredentials | IRedisCredentials | IRabbitMqCredentials;

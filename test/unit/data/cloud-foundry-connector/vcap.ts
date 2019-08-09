@@ -62,21 +62,27 @@ export const vcap = {
         instance_name: 'my-fancy-rabbitmq-service',
         binding_name: undefined,
         credentials: {
-          management: {
-            uri: 'http://your-username:your-password@your-rabbitmq-host:77777/api',
-            uris: [
-              'http://your-username:your-password@your-rabbitmq-host:77777/api'
-            ],
-            username: 'your-username',
-            password: 'your-password',
-            host: 'your-rabbitmq-host',
-            hosts: [
-              'your-rabbitmq-host',
-            ],
-            port: 77777,
-            path: '/api',
-            ssl: false,
-          },
+          uri: 'amqp://your-username:your-password@your-rabbitmq-host:77777/your-vhost',
+          uris: [
+            'amqp://your-username:your-password@your-rabbitmq-host:77777/your-vhost',
+          ],
+          vhost: 'your-vhost',
+          username: 'your-username',
+          ssl: false,
+          password: 'your-password',
+          hostname: 'your-rabbitmq-host',
+          hostnames: [
+            'your-rabbitmq-host',
+          ],
+          port: 77777,
+          amqp_port: 88888,
+          mqtt_port: 99999,
+          stomp_port: 11111,
+          management_port: 222222,
+          http_api_uri: 'http://your-username:your-password@your-rabbitmq-host:222222/api',
+          http_api_uris: [
+            'http://your-username:your-password@your-rabbitmq-host:222222/api',
+          ],
         },
         syslog_drain_url: undefined,
         volume_mounts: [],
