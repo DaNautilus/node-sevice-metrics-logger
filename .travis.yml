@@ -21,15 +21,21 @@ after_success:
     provider: npm
     email: robert.kleger@bobb.io
     skip_cleanup: true
-    api_key: $NPM_TOKEN1
+    api_key: $NPM_TOKEN
     wait-until-deployed: true
 
 deploy:
   - <<: *npm_deploy
     on:
       tags: true
+      branch: master
+      condition: "! $TRAVIS_TAG =~ -(beta).[0-9]+$"
+
+  - <<: *npm_deploy
+    on:
+      tags: true
       tag: beta
-      all_branches: true
+      branch: master
       condition: "$TRAVIS_TAG =~ -(beta).[0-9]+$"
 
 addons:
