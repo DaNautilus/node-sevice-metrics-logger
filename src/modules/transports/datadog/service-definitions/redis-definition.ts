@@ -9,8 +9,11 @@ export const redisDefinition: IServiceDefinition = {
     // master down
     'redis.replication.master_link_down_since_seconds': 'master_link_down_since_seconds',
 
-    // commands per second
+    // total number of commands processed
     'redis.net.commands': 'total_commands_processed',
+
+    // number of commands processed per second
+    'redis.net.commands.instantaneous_ops_per_sec': 'instantaneous_ops_per_sec',
 
     // cache hit rate
     'redis.stats.keyspace_hits': 'keyspace_hits',
