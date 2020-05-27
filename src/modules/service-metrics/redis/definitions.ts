@@ -18,6 +18,10 @@ export const redisDefinitions: IMetricDefinition[] = [
     getValues: ({ total_commands_processed }) => [{ value: total_commands_processed }],
   },
   {
+    metric: 'instantaneous_ops_per_sec',
+    getValues: ({ instantaneous_ops_per_sec }) => [{ value: instantaneous_ops_per_sec }],
+  },
+  {
     metric: 'keyspace_hits',
     getValues: ({ keyspace_hits }) => [{ value: keyspace_hits }],
   },
